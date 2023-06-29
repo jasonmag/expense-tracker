@@ -1,25 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  // Link,
+  Route,
+  Outlet,
+  RouterProvider
+} from 'react-router-dom';
+import { Home } from "./pages/Home";
+import { About } from "./pages/About";
+import { Expenses } from "./pages/Expenses";
+import { NewExpense } from "./pages/NewExpense";
+import { Header } from "./pages/Header";
+import { Footer } from "./pages/Footer";
+
+
 
 function App() {
+  
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<Root />}>
+        <Route index element={<Home />}/>
+        <Route path="/about" element={<About />}/>
+        <Route path="/expenses" element={<Expenses />}/>
+        <Route path="/new-expense" element={<NewExpense />}/>
+      </Route>
+    )
+  )
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header/>
+      <RouterProvider router={router}/>
+      <Footer/>
     </div>
   );
-}
+
+};
+
+const Root = () => {
+  return (
+    <>
+      {/* <div>
+        <Link to="/">Home</Link>
+        <Link to="/expenses">Expenses</Link>
+        <Link to="/new-expense">New Expenses</Link>
+        <Link to="/about">About</Link>
+      </div> */}
+
+      <div>
+        <Outlet/>
+      </div>
+    </>
+  );
+};
 
 export default App;
