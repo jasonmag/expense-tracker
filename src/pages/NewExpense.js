@@ -1,8 +1,44 @@
+import React, { useState } from "react";
+import axios from "axios";
+
+// Define the constant variable here
+const API_URL = "http://localhost:3001/api/expenses";
 
 export const NewExpense = () => {
+  const [amount, setAmount] = useState('');
+  const [category, setCategory] = useState('');
+  const [date, setDate] = useState('');
+  const [description, setDescription] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // Make the POST request here as well (in case you want to submit the form via button click)
+    axios.post(API_URL, {
+      amount: amount,
+      category: category,
+      date: date,
+      description: description,
+    })
+    .then((response) => {
+      // Handle the response if needed
+      console.log("Response:", response.data);
+      // Clear the form after successful submission
+      setAmount('');
+      setCategory('');
+      setDate('');
+      setDescription('');
+    })
+    .catch((error) => {
+      // Handle errors if any
+      console.error("Error:", error);
+    });
+  };
+
+
   return (
     <div className="px-4">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="space-y-12">
           {/* Existing code */}
         
@@ -19,6 +55,8 @@ export const NewExpense = () => {
                     type="text"
                     name="amount"
                     id="amount"
+                    value={amount} // Assign the state value to the input field
+                    onChange={(e) => setAmount(e.target.value)} // Update the state when the input changes
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -33,6 +71,8 @@ export const NewExpense = () => {
                     type="text"
                     name="category"
                     id="category"
+                    value={category} // Assign the state value to the input field
+                    onChange={(e) => setCategory(e.target.value)} // Update the state when the input changes
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -47,6 +87,8 @@ export const NewExpense = () => {
                     type="date"
                     name="date"
                     id="date"
+                    value={date} // Assign the state value to the input field
+                    onChange={(e) => setDate(e.target.value)} // Update the state when the input changes
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -61,6 +103,8 @@ export const NewExpense = () => {
                     id="description"
                     name="description"
                     rows={3}
+                    value={description} // Assign the state value to the textarea
+                    onChange={(e) => setDescription(e.target.value)} // Update the state when the textarea changes
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     defaultValue={''}
                   />
@@ -81,5 +125,5 @@ export const NewExpense = () => {
         </div>
       </form>
     </div>
-  )
+  );
 };
