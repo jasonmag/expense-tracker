@@ -13,6 +13,8 @@ import { Expenses } from "./pages/Expenses";
 import { NewExpense } from "./pages/NewExpense";
 import { Header } from "./pages/Header";
 import { Footer } from "./pages/Footer";
+import { Login } from "./pages/Login";
+import { Registration } from "./pages/Registration";
 
 
 
@@ -25,6 +27,8 @@ function App() {
         <Route path="/about" element={<About />}/>
         <Route path="/expenses" element={<Expenses />}/>
         <Route path="/new-expense" element={<NewExpense />}/>
+        <Route path="/login" element={<Login />}/>
+        <Route path="/registration" element={<Registration />}/>
       </Route>
     )
   )
