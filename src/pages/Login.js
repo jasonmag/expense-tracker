@@ -22,7 +22,7 @@ export function Login () {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(loginData),
+      body: JSON.stringify({user: loginData}),
     })
     .then((response) => {
       if (response.ok) {
