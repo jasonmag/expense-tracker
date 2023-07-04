@@ -12,6 +12,16 @@ export function Login () {
     }));
   };
 
+  const handleLoginResponse = (response) => {
+    // Check if the response contains the authentication headers you need
+    const authToken = response.headers.get('Authorization');
+    // Save the authToken to your preferred storage (e.g., localStorage, cookies, etc.)
+    // For example, you can save it to localStorage:
+    localStorage.setItem('authToken', authToken);
+    // Now you can use the authToken to access other APIs in your application
+    // E.g., fetch another API using the authToken for authorization.
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -27,6 +37,7 @@ export function Login () {
     .then((response) => {
       if (response.ok) {
         console.log('Login successful!');
+        handleLoginResponse(response);
       } else {
         console.error('Login failed.');
       }
