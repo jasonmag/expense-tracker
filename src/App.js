@@ -2,7 +2,6 @@ import React from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
-  // Link,
   Route,
   Outlet,
   RouterProvider
