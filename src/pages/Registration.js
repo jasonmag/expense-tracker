@@ -1,9 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export function Registration() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: ''
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const apiUrl = 'http://localhost:3001/api/users';
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({user: formData})
+      });
+
+      if (response.ok) {
+        // Registration successful, handle the response as needed
+        console.log('Registration successful');
+      } else {
+        // Registration failed, handle the error
+        console.error('Registration failed');
+      }
+    } catch (error) {
+      // Error occurred while making the request, handle the error
+      console.error('Error occurred:', error);
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   return (
     <>
-      {/* Add any required styles to your template here */}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -17,7 +54,7 @@ export function Registration() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="/" method="POST">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
                 Full Name
@@ -30,6 +67,8 @@ export function Registration() {
                   autoComplete="name"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={formData.name}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -46,6 +85,8 @@ export function Registration() {
                   autoComplete="email"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -53,28 +94,45 @@ export function Registration() {
             <div>
               <div className="flex items-center justify-between">
                 <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Password
+                Password
                 </label>
-                <div className="text-sm">
-                  <a href="/" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                    Forgot password?
-                  </a>
-                </div>
+              <div className="text-sm">
+                <a href="/" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                  Forgot password?
+                </a>
               </div>
+            </div>
+            <div className="mt-2">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="new-password"
+                required
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={formData.password}
+                onChange={handleChange}
+              />
+            </div>
+            </div>
+
+            <div>
+              <label htmlFor="password_confirmation" className="block text-sm font-medium leading-6 text-gray-900">
+                Confirm Password
+              </label>
               <div className="mt-2">
                 <input
-                  id="password"
-                  name="password"
+                  id="password_confirmation"
+                  name="password_confirmation"
                   type="password"
                   autoComplete="new-password"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={formData.password_confirmation}
+                  onChange={handleChange}
                 />
               </div>
             </div>
-
-            {/* Add additional fields for registration as needed */}
-            {/* For example, you might have a field for a phone number */}
 
             <div>
               <button
@@ -96,4 +154,4 @@ export function Registration() {
       </div>
     </>
   );
-};
+}
