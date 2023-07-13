@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const API_URL = "http://localhost:3001/api/expenses";
+const ACCOUNT_URL = "htttp://localhost:3001/api/accounts";
+const TRANSACTION_URL = "http://localhost:3001/api/transaction_types";
 //TODO Add Accounts, Transaction Types
 const authToken = localStorage.getItem('authToken');
 

@@ -6,6 +6,8 @@ const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Expenses', href: '/expenses', current: false },
   { name: 'New Expense', href: '/new-expense', current: false },
+  { name: 'Account', href: '/account', current: false },
+  { name: 'Account Type', href: '/account-type', current: false },
   { name: 'About', href: '/about', current: false },
   { name: 'Login', href: '/login', current: false },
   { name: 'Registration', href: '/registration', current: false },
