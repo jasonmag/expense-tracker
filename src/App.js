@@ -14,6 +14,7 @@ import { Header } from "./pages/Header";
 import { Footer } from "./pages/Footer";
 import { Login } from "./pages/Login";
 import { Registration } from "./pages/Registration";
+import { AccountsTable } from "./pages/AccountsTable";
 import { Account } from "./pages/Account";
 import { AccountType } from "./pages/AccountType";
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/about" element={<About />}/>
         <Route path="/expenses" element={<Expenses />}/>
         <Route path="/new-expense" element={<NewExpense />}/>
+        <Route path="/accounts" element={<AccountsTable />}/>
         <Route path="/account" element={<Account />}/>
         <Route path="/account-type" element={<AccountType />}/>
         <Route path="/login" element={<Login />}/>
