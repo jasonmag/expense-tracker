@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function Login () {
   // eslint-disable-next-line
@@ -12,6 +13,8 @@ export function Login () {
     }));
   };
 
+  const navigate = useNavigate();
+
   const handleLoginResponse = (response) => {
     // Check if the response contains the authentication headers you need
     const authToken = response.headers.get('Authorization');
@@ -20,6 +23,9 @@ export function Login () {
     localStorage.setItem('authToken', authToken);
     // Now you can use the authToken to access other APIs in your application
     // E.g., fetch another API using the authToken for authorization.
+
+    // Redirect to the home page after successful login
+    navigate("/");
   };
 
   const handleSubmit = (event) => {

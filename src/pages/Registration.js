@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function Registration() {
   const [formData, setFormData] = useState({
@@ -7,6 +8,8 @@ export function Registration() {
     password: '',
     password_confirmation: ''
   });
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +28,9 @@ export function Registration() {
       if (response.ok) {
         // Registration successful, handle the response as needed
         console.log('Registration successful');
+
+        // Redirect to the home page after successful login
+        navigate("/login");
       } else {
         // Registration failed, handle the error
         console.error('Registration failed');
