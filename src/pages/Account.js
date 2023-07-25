@@ -8,7 +8,7 @@ const authToken = localStorage.getItem('authToken');
 export const Account = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [accountTypeId, setAccountTypeId] = useState('');
+  const [accountTypesId, setAccountTypesId] = useState('');
   const [accountTypes, setAccountTypes] = useState([]);
 
   useEffect(() => {
@@ -33,10 +33,11 @@ export const Account = () => {
     event.preventDefault();
 
     try {
+      const account_types_id = accountTypesId
       const response = await axios.post(API_URL, {
         name,
         description,
-        accountTypeId
+        account_types_id
       }, {
         headers: {
           Authorization: authToken
@@ -47,7 +48,7 @@ export const Account = () => {
 
       setName('');
       setDescription('');
-      setAccountTypeId('');
+      setAccountTypesId('');
     } catch (error) {
       console.error(error);
     }
@@ -80,8 +81,8 @@ export const Account = () => {
           <label htmlFor="accountType" className="block font-bold mb-2">Account Type:</label>
           <select
             id="accountType"
-            value={accountTypeId}
-            onChange={(event) => setAccountTypeId(event.target.value)}
+            value={accountTypesId}
+            onChange={(event) => setAccountTypesId(event.target.value)}
             className="w-full border border-gray-300 p-2 rounded"
           >
             <option value="">Select Account Type</option>
