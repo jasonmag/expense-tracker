@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ButtonLink from '../components/ButtonLink';
 
 const API_URL = "http://localhost:3001/api/accounts";
 const ACCOUNT_TYPES_URL = "http://localhost:3001/api/account_types";
@@ -96,9 +97,10 @@ export const Account = () => {
             ))}
           </select>
         </div>
-        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 mr-2 rounded">
           Submit
         </button>
+        <ButtonLink to="/account-type" text="Add Account Type" />
       </form>
     </div>
   );
