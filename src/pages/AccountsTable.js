@@ -65,7 +65,7 @@ export const AccountsTable = () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-2">Accounts</h1>
-      <div class="text-right"><ButtonLink to="/account" text="Create New Account" /></div>
+      <div className="text-right"><ButtonLink to="/account" text="Create New Account" /></div>
       <div className="py-2">
         <table className="w-full border border-gray-300 py-4">
           <thead>
