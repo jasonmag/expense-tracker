@@ -82,7 +82,7 @@ export const AccountsTable = () => {
                 <td className="p-2 border-b">{account.name}</td>
                 <td className="p-2 border-b">{account.description}</td>
                 <td className="p-2 border-b">{account.accountTypeId || account.account_types_id}</td>
-                <td className="p-2 border-b"><EditButton onClick={handleEdit}/><DeleteButton onClick={handleDelete} /></td>
+                <td className="p-2 border-b flex"><EditButton onClick={handleEdit}/><DeleteButton onClick={handleDelete} /></td>
               </tr>
             ))}
           </tbody>
