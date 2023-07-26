@@ -17,6 +17,7 @@ import { Registration } from "./pages/Registration";
 import { AccountsTable } from "./pages/AccountsTable";
 import { Account } from "./pages/Account";
 import { AccountType } from "./pages/AccountType";
+import { AccountEdit } from "./pages/AccountEdit";
 
 
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/account-type" element={<AccountType />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/registration" element={<Registration />}/>
+        <Route path="/account/edit/:accountId" element={<AccountEdit />}/>
       </Route>
     )
   )

@@ -7,7 +7,7 @@ const API_URL = "http://localhost:3001/api/accounts";
 const ACCOUNT_TYPES_URL = "http://localhost:3001/api/account_types";
 const authToken = localStorage.getItem('authToken');
 
-export const Account = () => {
+export const Account = ({ accountId }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [accountTypesId, setAccountTypesId] = useState('');
@@ -30,28 +30,74 @@ export const Account = () => {
     };
 
     fetchAccountTypes();
-  }, []);
+
+    if(accountId){
+      fetchAccountDetails();
+    }
+  }, [accountId]);
+
+  // Fetch account details for editing
+  const fetchAccountDetails = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/${accountId}`, {
+        headers: {
+          Authorization: authToken,
+        },
+      });
+
+      const accountData = response.data.account;
+      setName(accountData.name);
+      setDescription(accountData.description);
+      setAccountTypesId(accountData.account_types_id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const account_types_id = accountTypesId
-      const response = await axios.post(API_URL, {
-        name,
-        description,
-        account_types_id
-      }, {
-        headers: {
-          Authorization: authToken
-        }
-      });
+      const account_types_id = accountTypesId;
+      let response;
+      if (accountId) {
+        // Update existing account if accountId is provided
+        response = await axios.put(
+          `${API_URL}/${accountId}`,
+          {
+            name,
+            description,
+            account_types_id,
+          },
+          {
+            headers: {
+              Authorization: authToken,
+            },
+          }
+        );
+      } else {
+        // Create a new account if no accountId is provided
+        response = await axios.post(
+          API_URL,
+          {
+            name,
+            description,
+            account_types_id,
+          },
+          {
+            headers: {
+              Authorization: authToken,
+            },
+          }
+        );
+      }
 
-      if(response.data.status == 'SUCCESS'){
+      if (response.data.status === 'SUCCESS') {
         setName('');
         setDescription('');
         setAccountTypesId('');
-        navigate('/accounts')
+        navigate('/accounts');
       }
     } catch (error) {
       console.error(error);

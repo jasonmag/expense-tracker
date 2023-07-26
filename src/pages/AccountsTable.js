@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import ButtonLink from '../components/ButtonLink';
 import EditButton from '../components/EditButton';
@@ -13,15 +14,27 @@ export const AccountsTable = () => {
   const [accounts, setAccounts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleEdit = () => {
+  const handleEdit = (accountId) => {
     // Handle edit functionality
-    console.log(`Editing item`);
+    navigate(`/account/edit/${accountId}`)
   };
 
-  const handleDelete = () => {
-    // Handle delete functionality
-    console.log(`Deleting item`);
+  const handleDelete = async (accountId) => {
+    try {
+      // Send DELETE request to the API
+      await axios.delete(`${API_URL}/${accountId}`, {
+        headers: {
+          Authorization: authToken,
+        },
+      });
+  
+      // Remove the deleted account from the state
+      setAccounts((prevAccounts) => prevAccounts.filter((account) => account.id !== accountId));
+    } catch (error) {
+      setError('Error deleting account.');
+    }
   };
 
   useEffect(() => {
@@ -82,7 +95,9 @@ export const AccountsTable = () => {
                 <td className="p-2 border-b">{account.name}</td>
                 <td className="p-2 border-b">{account.description}</td>
                 <td className="p-2 border-b">{account.accountTypeId || account.account_types_id}</td>
-                <td className="p-2 border-b flex"><EditButton onClick={handleEdit}/><DeleteButton onClick={handleDelete} /></td>
+                <td className="p-2 border-b">
+                  <div className="flex"><EditButton onClick={() => handleEdit(account.id)}/><DeleteButton onClick={() => handleDelete(account.id)} /></div>
+                </td>
               </tr>
             ))}
           </tbody>
